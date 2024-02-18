@@ -52,7 +52,7 @@ const TaskAdd = () => {
                 // toast.success("Employee Added !", {
                 //     position: toast.POSITION.TOP_RIGHT,
                 // });
-                window.location.href = "/";
+                window.location.href = "/Home";
             } catch (error) {
                 // Handle error (display an error message, log, etc.)
                 console.error('Error adding employee:', error);
