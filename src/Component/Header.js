@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Header = () => {
+    const usenavigate = useNavigate();
     const handlerLogout = () => {
-        window.location.href = '/Login';
+        usenavigate('/Login');
+        toast.success('Logout Successfully!');
     }
     return (
         <><nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -35,8 +39,8 @@ const Header = () => {
                         </li> */}
                     </ul>
                     {/* <form className="d-flex"> */}
-                        {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> */}
-                        <button className="btn btn-outline-success" onClick={handlerLogout}>Logout</button>
+                    {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> */}
+                    <button className="btn btn-outline-success" onClick={handlerLogout}>Logout</button>
                     {/* </form> */}
                 </div>
             </div>

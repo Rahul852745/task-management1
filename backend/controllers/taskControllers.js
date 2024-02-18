@@ -75,6 +75,9 @@ exports.userLogin = (req, res) => {
         } else {
             if (results.length > 0) {
                 // User is authenticated, you can send a success message or token here
+                // req.session.key = value 
+                req.session.email = email;
+                // console.log(req.session.email);
                 res.json({ message: 'Login successful' });
             } else {
                 // User credentials are incorrect

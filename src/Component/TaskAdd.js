@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { addTask, updateTask, getTaskById } from "../Services/api";
 import Header from "./Header";
-import { useParams } from 'react-router-dom';
-
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const TaskAdd = () => {
     const { id } = useParams();
+    const usenavigate = useNavigate();
     const [task, setTask] = useState({
         name: '',
         description: '',
@@ -40,19 +41,14 @@ const TaskAdd = () => {
 
         if (id) {
             await updateTask(id, task);
-            // toast.success("Employee Updated !", {
-            //     position: toast.POSITION.TOP_RIGHT,
-            // });
-            window.location.href = "/Home";
+            usenavigate("/Home");
+            toast.success("Task Updated!");
 
         } else {
             try {
                 await addTask(task);
-                // onAddEmployee(newEmployee);
-                // toast.success("Employee Added !", {
-                //     position: toast.POSITION.TOP_RIGHT,
-                // });
-                window.location.href = "/Home";
+                usenavigate("/Home");
+                toast.success("Task Added!");
             } catch (error) {
                 // Handle error (display an error message, log, etc.)
                 console.error('Error adding employee:', error);

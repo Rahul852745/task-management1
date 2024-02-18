@@ -1,13 +1,16 @@
 import React, { useState, } from 'react';
 import { userLogin, addUser } from '../Services/api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+    const usenavigate = useNavigate();
+    const [signup, setSignup] = useState(false);
     const [users, setUsers] = useState({
         email: '',
         password: '',
-        // Add other fields as needed...
     });
-    const [signup, setSignup] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -19,9 +22,10 @@ const Login = () => {
         try {
             const getUsers = await userLogin(users);
             if (getUsers.message === "Login successful") {
-                window.location.href = "/Home";
+                usenavigate("/Home");
+                toast.success(getUsers.message);
             } else {
-                alert(getUsers.message);
+                toast.error(getUsers.message);
                 return false;
             }
         } catch (error) {
@@ -35,16 +39,17 @@ const Login = () => {
         try {
             const user = await addUser(users);
             if (user.status == "500") {
-                alert(user.message);
+                toast.error(user.message);
                 return false;
             } else if (user.status == "409") {
-                alert(user.message);
+                toast.error(user.message);
                 return false;
             } else if (user.status == "400") {
-                alert(user.message);
+                toast.error(user.message);
                 return false;
             } else {
-                window.location.href = "/Login";
+                usenavigate("/Login");
+                toast.success(user.message);
             }
         } catch (error) {
             console.error("Signup failed", error);
